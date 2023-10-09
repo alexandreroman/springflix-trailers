@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: springflix-trailers
+  cloud:
+    refresh:
+      enabled: false
+
+app:
+  tmdb:
+    api:
+      url: https://api.themoviedb.org
+      key:
+
+server:
+  port: ${PORT:8083}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
