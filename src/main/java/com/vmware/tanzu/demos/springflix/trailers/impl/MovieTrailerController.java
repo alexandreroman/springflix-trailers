@@ -16,6 +16,7 @@
 
 package com.vmware.tanzu.demos.springflix.trailers.impl;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vmware.tanzu.demos.springflix.trailers.model.MovieTrailerService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
@@ -56,6 +57,8 @@ class MovieTrailerController {
     record MovieTrailers(String id, List<MovieTrailer> trailers) {
     }
 
-    record MovieTrailer(URI videoUri, LocalDate publishedAt) {
+    record MovieTrailer(URI videoUri,
+                        @JsonFormat(pattern = "yyyy-MM-dd")
+                        LocalDate publishedAt) {
     }
 }
