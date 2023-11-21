@@ -190,9 +190,9 @@ class MovieTrailerControllerTest {
         assertThat(resp).isNotNull();
         assertThat(resp.id()).isEqualTo("466420");
         assertThat(resp.trailers()).containsExactlyInAnyOrder(
-                new MovieTrailerController.MovieTrailers.Item(mt1.videoUri(), mt1.publishedAt()),
-                new MovieTrailerController.MovieTrailers.Item(mt2.videoUri(), mt2.publishedAt()),
-                new MovieTrailerController.MovieTrailers.Item(mt3.videoUri(), mt3.publishedAt())
+                new MovieTrailerController.MovieTrailer(mt1.videoUri(), mt1.publishedAt()),
+                new MovieTrailerController.MovieTrailer(mt2.videoUri(), mt2.publishedAt()),
+                new MovieTrailerController.MovieTrailer(mt3.videoUri(), mt3.publishedAt())
         );
     }
 }

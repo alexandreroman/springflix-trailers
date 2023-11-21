@@ -17,6 +17,7 @@
 package com.vmware.tanzu.demos.springflix.trailers.impl;
 
 import com.vmware.tanzu.demos.springflix.trailers.model.MovieTrailerService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.CacheControl;
@@ -32,6 +33,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@Tag(name = "trailers")
 class MovieTrailerController {
     private final Logger logger = LoggerFactory.getLogger(MovieTrailerController.class);
     private final MovieTrailerService movieTrailerService;
@@ -45,14 +47,15 @@ class MovieTrailerController {
         logger.info("Looking up trailers for movie: {}", movieId);
 
         final var trailers = movieTrailerService.getMovieTrailers(movieId)
-                .stream().map(t -> new MovieTrailers.Item(t.videoUri(), t.publishedAt())).toList();
+                .stream().map(t -> new MovieTrailer(t.videoUri(), t.publishedAt())).toList();
         return ResponseEntity.ok()
                 .cacheControl(CacheControl.maxAge(Duration.ofMinutes(10)))
                 .body(new MovieTrailers(movieId, trailers));
     }
 
-    record MovieTrailers(String id, List<Item> trailers) {
-        record Item(URI videoUri, LocalDate publishedAt) {
-        }
+    record MovieTrailers(String id, List<MovieTrailer> trailers) {
+    }
+
+    record MovieTrailer(URI videoUri, LocalDate publishedAt) {
     }
 }
